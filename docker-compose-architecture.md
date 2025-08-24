@@ -14,7 +14,6 @@ graph TD
     taskmanager1 -->|depends| jobmanager
     taskmanager2 -->|depends| jobmanager
     console ==>|http| redpanda
-    console ==>|http| redpanda
 
     %% Styling for different connection types
     classDef external fill:#ffcccc,color:black,stroke:#ff6666,stroke-width:2px;
@@ -93,7 +92,6 @@ graph LR
 
 **🔄 Connected From:**
 - **console** via http
-- **console** via http
 
 **📁 Volumes (1):**
 - 🗂️ Bind Mount: `./logs/redpanda` → `/var/lib/redpanda/data`
@@ -109,7 +107,6 @@ graph LR
 **🔗 Dependencies:** redpanda
 
 **🔄 Connects To:**
-- **redpanda** via http
 - **redpanda** via http
 
 **⚙️ Environment Variables (2):**
@@ -220,5 +217,4 @@ taskmanager.nu...
 
 ## All Service-to-Service Connections
 
-- **console** → **redpanda** via `http`
 - **console** → **redpanda** via `http`
