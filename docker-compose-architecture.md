@@ -34,16 +34,15 @@ graph TD
 
 ```mermaid
 graph TB
-    subgraph default["Network: default"]
-        redpanda_default["redpanda ports:18081,18082,19092,19644"]
-        console_default["console ports:8080"]
-        jobmanager_default["jobmanager ports:8081,9249"]
-        taskmanager1_default["taskmanager1 ports:9250"]
-        taskmanager2_default["taskmanager2 ports:9251"]
-        postgres_default["postgres ports:5432"]
-        prometheus_default["prometheus ports:9090"]
-        grafana_default["grafana ports:3000"]
-    end
+    network["Network: default"]
+    redpanda["redpanda\nports: 18081,18082,19092,19644"] --> network
+    console["console\nports: 8080"] --> network
+    jobmanager["jobmanager\nports: 8081,9249"] --> network
+    taskmanager1["taskmanager1\nports: 9250"] --> network
+    taskmanager2["taskmanager2\nports: 9251"] --> network
+    postgres["postgres\nports: 5432"] --> network
+    prometheus["prometheus\nports: 9090"] --> network
+    grafana["grafana\nports: 3000"] --> network
 
     %% Styling
     classDef healthcheck fill:#e1f5fe,color:black,stroke:#0277bd,stroke-width:2px;
