@@ -34,6 +34,10 @@ or this command for kafka setup
 ./kafka-setup.sh
 ```
 
+# Flink SQL
+```shell
+docker exec -it jobmanager ./bin/sql-client.sh
+```
 
 ### Register UDF
 ```shell
