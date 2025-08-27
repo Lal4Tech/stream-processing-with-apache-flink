@@ -110,3 +110,87 @@ SELECT
     *
 FROM 
     accounts;
+
+-- Stateless Operators
+
+-- Find all the debit transactions with an amount > 180.000
+SELECT
+	transactionId,
+	eventTime_ltz,
+	type,
+	amount,
+	balance
+FROM transactions
+WHERE amount > 180000
+  AND type = 'Credit'
+ORDER BY eventTime_ltz;
+
+-- Temporary Views
+CREATE TEMPORARY VIEW temp_premium AS
+SELECT
+	transactionId,
+	eventTime_ltz,
+	type,
+	amount,
+	balance
+FROM transactions
+WHERE amount > 180000
+  AND type = 'Credit'
+ORDER BY eventTime_ltz;
+
+SELECT * FROM temp_premium;
+
+SHOW VIEWS;
+
+-- Materializing Operators
+-- Find the total transactions per customer
+SELECT
+	customerId,
+	COUNT(transactionId) AS txnCount
+FROM transactions
+GROUP BY customerId
+LIMIT 10;
+
+-- Which customers made more than 1000 transactions?
+SELECT *
+FROM (
+	SELECT customerId, COUNT(transactionId) AS txnPerCustomer
+	FROM transactions
+	GROUP BY customerId
+) AS e
+WHERE txnPerCustomer > 500;
+
+-- Temporal Operators
+-- Records and computations are associated with a temporal condition.
+
+-- Built-in functions
+SELECT
+	transactionId,
+	eventTime_ltz,
+	convert_tz(
+		cast(eventTime_ltz as string),
+		'Europe/London', 'UTC'
+	) AS eventTime_ltz_utc,
+	type,
+	amount,
+	balance
+FROM transactions
+WHERE amount > 180000
+  AND type = 'Credit';
+
+-- Running SQL Queries with Code
+
+
+SELECT 
+	transactionId, rowNum
+FROM (
+	SELECT 
+		*,
+		ROW_NUMBER() OVER (
+			PARTITION BY transactionId
+	 		ORDER BY eventTime_ltz
+		) AS rowNum
+	 	FROM transactions
+)
+WHERE 
+	rowNum = 1;
