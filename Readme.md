@@ -34,6 +34,11 @@ or this command for kafka setup
 ./kafka-setup.sh
 ```
 
+To populate the topics, run 
+- ```src/main/java/io/streamingledger/producers/TransactionsProducer.java```
+- ```src/main/java/io/streamingledger/producers/StateProducer.java```
+
+
 # Flink SQL
 ```shell
 docker exec -it jobmanager ./bin/sql-client.sh
